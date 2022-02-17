@@ -18,7 +18,7 @@ def builddatecheck():
 @pytest.mark.parametrize('package', ['binary/builddate'])
 def test_build_date_time(tmpdir, package, builddatecheck):
     output, test = builddatecheck
-    test.istoday = re.compile('Jan  1 2019')
+    test.istoday = re.compile(b'Jan  1 2019')
     test.check(get_tested_package(package, tmpdir))
     out = output.print_results(output.results)
     assert 'E: file-contains-date-and-time /bin/with-datetime' in out
@@ -28,7 +28,7 @@ def test_build_date_time(tmpdir, package, builddatecheck):
 @pytest.mark.parametrize('package', ['binary/bashisms'])
 def test_build_date_time_correct(tmpdir, package, builddatecheck):
     output, test = builddatecheck
-    test.istoday = re.compile('Jan  1 2019')
+    test.istoday = re.compile(b'Jan  1 2019')
     test.check(get_tested_package(package, tmpdir))
     out = output.print_results(output.results)
     assert 'E: file-contains-date-and-time' not in out

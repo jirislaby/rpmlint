@@ -16,6 +16,7 @@ class BuildRootCheck(AbstractFilesCheck):
         self.build_root_re = re.compile(buildroot)
 
     def check_file(self, pkg, filename):
+        return
         if filename.startswith('/usr/lib/debug') or pkg.is_source:
             return
         if not stat.S_ISREG(pkg.files[filename].mode):

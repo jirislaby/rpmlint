@@ -2,6 +2,7 @@ import bz2
 from collections import namedtuple
 import gzip
 import lzma
+import mmap
 import os
 from pathlib import Path
 import re
@@ -536,6 +537,19 @@ class Pkg(AbstractPkg):
                     return None
         except Exception:
             return None
+
+    def mmap(self, filename):
+        """Mmap a file, return None in case of error."""
+        try:
+            with open(Path(self.dirName() or '/', filename.lstrip('/'))) as in_file:
+                return mmap.mmap(in_file.fileno(), 0, mmap.MAP_SHARED,
+                        mmap.PROT_READ)
+        except ValueError:
+            pass
+        except Exception as ex:
+            print(f'exception={type(ex)} -> {ex}')
+            raise
+        return None
 
     def langtag(self, tag, lang):
         """Get value of tag in the given language."""
