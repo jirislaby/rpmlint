@@ -110,8 +110,8 @@ class Lint(object):
             raise e
 
     def _maybe_print_reports(self):
-        if self.options['time_report']:
-            self._print_time_report()
+        #if self.options['time_report']:
+        self._print_time_report()
         if self.profile:
             self._print_cprofile()
 
